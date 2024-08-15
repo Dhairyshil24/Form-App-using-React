@@ -2,9 +2,13 @@
 import { useState } from 'react';
 import './App.css';
 import { isVisible } from '@testing-library/user-event/dist/utils';
+import './index.css'
 
 function App() {
-  const [formData, setFormData] = useState({firstName: "", lastName: "", email: "", comments: "", isVisible: false, mode:"", favCar:""});
+  const [formData, setFormData] = useState({firstName: "", lastName: "", email: "", address: "", 
+                                             mode:"", country: "", city:"", 
+                                            zipcode:"",byEmailComments: false, byEmailCandidates: false
+                                            ,byEmailOthers: false});
 
   const changeHandler = (event) => {
     const {name, value, checked, type} = event.target
@@ -33,15 +37,18 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={submitHandler}>
+        <div>First Name</div>
         <input
         type='text'
         placeholder='first name'
         onChange={changeHandler}
         name='firstName'
+        id='firstName'
         value={formData.firstName}
         />
         <br/>
         <br/>
+        <div>Last Name</div>
        <input
         type='text'
         placeholder='last name'
@@ -51,6 +58,7 @@ function App() {
         />
        <br/>
         <br/>
+        <div>Email</div>
        <input
         type='email'
         placeholder='x@email.com'
@@ -60,67 +68,126 @@ function App() {
         />
         <br/>
         <br/>
-        <textarea
-        placeholder='write your thoughts'
+        <div>Which Country do you live</div>
+        
+        <select
+        name='country'
+        id='country'
+        value={formData.country}
         onChange={changeHandler}
-        name='comments'
-        value={formData.comments}
+        > 
+          <option value="select">Select</option>
+          <option value="India">India</option>
+          <option value="Dubai">Dubai</option>
+          <option value="Austrelia">Austrelia</option>
+          <option value="USA">USA</option>
+
+        </select>
+  
+        <br/>
+        <br/>
+        <div>Street Address</div>
+        <textarea
+        placeholder='Dist.Kolhapur'
+        onChange={changeHandler}
+        name='address'
+        value={formData.address}
         />
+        <br/>
+        <br/>
+        <div>City</div>
+       <input
+        type='text'
+        placeholder='Kolhapur/City'
+        onChange={changeHandler}
+        name='city'
+        value={formData.city}
+        />
+        <br/>
+        <br/>
+        <div>Zip-Code</div>
+       <input
+        type='text'
+        placeholder='416112'
+        onChange={changeHandler}
+        name='zipcode'
+        value={formData.zipcode}
+        />
+        <br/>
+        <br/>
+        <div>By Email</div>
+        <input
+        type='checkbox'
+        name='byEmailComments'
+        id='byEmailComments'
+        onChange={changeHandler}
+        checked={formData.byEmailComments}
+        />
+        <label htmlFor='byEmailComments'>Tick to get comments by email</label>
         <br/>
         <br/>
         <input
         type='checkbox'
-        name='isVisible'
-        id='isVisible'
+        name='byEmailOthers'
+        id='byEmailOthers'
         onChange={changeHandler}
-        checked={formData.isVisible}
+        checked={formData.byEmailOtherse}
         />
-        <label htmlFor='isVisible'>Am I visible ?</label>
+        <label htmlFor='byEmailOthers'>byEmailOthers</label>
         <br/>
         <br/>
-        <fieldset>
-          <legend>Mode</legend>
+        <input
+        type='checkbox'
+        name='byEmailCandidates'
+        id='byEmailCandidates'
+        onChange={changeHandler}
+        checked={formData.byEmailCandidates}
+        />
+        <label htmlFor='byEmailCandidates'>By Email Candidates</label>
+        <br/>
+        <br/>
+        <div>Push Notifications</div>
+       <legend>Notifications</legend>
 
  
         <input
         type='radio'
         onChange={changeHandler}
         name='mode'
-        value="Online-mode"
-        id='Online-mode'
-        checked = {formData.mode === "Online-mode"}
+        value="everything"
+        id='everything'
+        checked = {formData.mode === "everything"}
         />
-        <label htmlFor='Online-mode'>Online Mode</label>
+        <label htmlFor='everything'>Everything</label>
+
+        <br></br>
         
         <input
         type='radio'
         onChange={changeHandler}
         name='mode'
-        value="Offline-mode"
-        id='Offline-mode'
-       checked = {formData.mode === "Offline-mode"}
+        value="sameAsEmail"
+        id='sameAsEmail'
+       checked = {formData.mode === "sameAsEmail"}
         />
-        <label htmlFor='Offline-mode'>Offline Mode</label>
-        </fieldset>
-
-        <select
-        name='favCar'
-        id='favCar'
-        value={formData.favCar}
+        <label htmlFor='sameAsEmail'>sameAsEmail</label>
+        <br></br>
+        <input
+        type='radio'
         onChange={changeHandler}
-        > 
-          <option value="select">select</option>
-          <option value="a">a</option>
-          <option value="b">b</option>
-          <option value="c">c</option>
-          <option value="d">d</option>
+        name='mode'
+        value="noPushNotifications"
+        id='noPushNotifications'
+       checked = {formData.mode === "noPushNotifications"}
+        />
+        <label htmlFor='noPushNotifications'>noPushNotifications</label>
 
-        </select>
-        <label htmlFor='favCar'>Tell me your favourite letter</label>
         <br/>
         <br/>
 
-        <button>Submit</button>
+
+
+        <button>Save</button>
         
 
     
